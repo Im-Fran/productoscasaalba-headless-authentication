@@ -1,0 +1,26 @@
+# WordPress
+*.bak
+*.tmp
+# Temp files
+
+Thumbs.db
+.DS_Store
+# OS
+
+*~
+*.swo
+*.swp
+.idea/
+.vscode/
+# IDE
+
+wp-content/backups/
+wp-content/cache/
+wp-content/wp-cache-config.php
+wp-content/advanced-cache.php
+wp-content/backup-db/
+wp-content/uploads/
+wp-config.php
+.htaccess
+*.log
+
