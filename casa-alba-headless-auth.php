@@ -55,6 +55,11 @@ class Casa_Alba_Headless_Auth {
     private $analytics;
 
     /**
+     * Auth Middleware instance
+     */
+    private $auth_middleware;
+
+    /**
      * Get singleton instance
      */
     public static function get_instance() {
@@ -96,6 +101,7 @@ class Casa_Alba_Headless_Auth {
         require_once CASA_ALBA_AUTH_PLUGIN_DIR . 'includes/class-analytics.php';
         require_once CASA_ALBA_AUTH_PLUGIN_DIR . 'includes/class-turnstile-validator.php';
         require_once CASA_ALBA_AUTH_PLUGIN_DIR . 'includes/class-auth-api.php';
+        require_once CASA_ALBA_AUTH_PLUGIN_DIR . 'includes/class-auth-middleware.php';
     }
 
     /**
@@ -106,6 +112,10 @@ class Casa_Alba_Headless_Auth {
         $this->rate_limiter = new Casa_Alba_Rate_Limiter();
         $this->session_manager = new Casa_Alba_Session_Manager();
         $this->analytics = new Casa_Alba_Auth_Analytics();
+        
+        // Initialize middleware
+        $this->auth_middleware = new Casa_Alba_Auth_Middleware($this->jwt_manager, $this->session_manager);
+        $this->auth_middleware->init();
     }
 
     /**
