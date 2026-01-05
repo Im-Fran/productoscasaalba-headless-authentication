@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define constants
-define('CASA_ALBA_AUTH_VERSION', '1.0.0');
+define('CASA_ALBA_AUTH_VERSION', '1.0.1');
 define('CASA_ALBA_AUTH_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('CASA_ALBA_AUTH_PLUGIN_URL', plugin_dir_url(__FILE__));
 

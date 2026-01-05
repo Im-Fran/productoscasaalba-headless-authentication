@@ -190,7 +190,9 @@ class Casa_Alba_Auth_API {
                 'id' => $user->ID,
                 'email' => $user->user_email,
                 'display_name' => $user->display_name,
-                'roles' => $user->roles
+                'roles' => $user->roles,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name
             )
         ), 200);
     }
