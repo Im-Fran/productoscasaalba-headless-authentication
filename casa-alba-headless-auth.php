@@ -3,7 +3,7 @@
  * Plugin Name: Casa Alba - Headless Authentication
  * Plugin URI: https://productoscasaalba.cl
  * Description: Sistema completo de autenticación JWT para aplicaciones headless con Cloudflare Turnstile, rate limiting, gestión de sesiones y analítica.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Casa Alba
  * Author URI: https://productoscasaalba.cl
  * License: GPL v3
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define constants
-define('CASA_ALBA_AUTH_VERSION', '1.0.1');
+define('CASA_ALBA_AUTH_VERSION', '1.0.2');
 define('CASA_ALBA_AUTH_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('CASA_ALBA_AUTH_PLUGIN_URL', plugin_dir_url(__FILE__));
 

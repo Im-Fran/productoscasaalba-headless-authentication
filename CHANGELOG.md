@@ -5,6 +5,17 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [1.0.2] - 2026-01-05
+
+### Añadido
+- Middleware de autenticación JWT para WordPress REST API
+  - Permite autenticar usuarios automáticamente en cualquier endpoint de WordPress REST API
+  - Funciona con el header `Authorization: Bearer <token>`
+  - Se integra con el sistema de autenticación nativo de WordPress mediante el filtro `determine_current_user`
+  - Actualiza automáticamente la actividad de sesión en cada petición autenticada
+  - Compatible con todos los endpoints nativos de WordPress y plugins de terceros
+- Documentación extendida sobre el uso del middleware en README.md, API.md e INSTALLATION.md
+
 ## [1.0.0] - 2026-01-04
 
 ### Añadido
