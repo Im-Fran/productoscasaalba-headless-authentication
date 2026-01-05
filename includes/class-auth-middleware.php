@@ -13,6 +13,7 @@ class Casa_Alba_Auth_Middleware {
 
     private $jwt_manager;
     private $session_manager;
+    private $current_token;
 
     /**
      * Constructor
@@ -20,6 +21,7 @@ class Casa_Alba_Auth_Middleware {
     public function __construct($jwt_manager, $session_manager) {
         $this->jwt_manager = $jwt_manager;
         $this->session_manager = $session_manager;
+        $this->current_token = null;
     }
 
     /**
@@ -86,7 +88,7 @@ class Casa_Alba_Auth_Middleware {
         }
 
         // Store token for activity tracking
-        $GLOBALS['casa_alba_auth_token'] = $token;
+        $this->current_token = $token;
 
         return $authenticated_user_id;
     }
@@ -103,9 +105,8 @@ class Casa_Alba_Auth_Middleware {
      */
     public function update_session_activity($result, $server, $request) {
         // Only update if user is authenticated via JWT
-        if (isset($GLOBALS['casa_alba_auth_token'])) {
-            $token = $GLOBALS['casa_alba_auth_token'];
-            $this->session_manager->update_activity($token);
+        if ($this->current_token) {
+            $this->session_manager->update_activity($this->current_token);
         }
 
         return $result;
