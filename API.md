@@ -11,6 +11,25 @@ La mayoría de los endpoints requieren autenticación mediante JWT token en el h
 Authorization: Bearer {token}
 ```
 
+### Middleware de Autenticación
+
+Este plugin incluye un middleware que permite autenticar usuarios automáticamente en **cualquier endpoint de WordPress REST API** (no solo los endpoints de este plugin) mediante el token JWT.
+
+**Cómo funciona:**
+1. Obtienes un token JWT mediante el endpoint `/auth/login`
+2. Incluyes el token en el header `Authorization: Bearer {token}` en cualquier petición a la REST API
+3. El middleware valida automáticamente el token y autentica al usuario
+4. WordPress reconoce al usuario como autenticado para esa petición
+
+**Ejemplo:**
+```bash
+# Acceder a un endpoint nativo de WordPress con autenticación JWT
+curl -X GET https://tudominio.com/wp-json/wp/v2/posts \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+**Nota:** El middleware solo se activa en peticiones REST API y no afecta al frontend tradicional de WordPress.
+
 ---
 
 ## Endpoints

@@ -10,6 +10,7 @@ Plugin de WordPress para autenticación JWT completa en aplicaciones headless.
 - Validación de tokens JWT
 - Refresco de tokens expirados/inválidos
 - Revocación de tokens (cierre de sesión)
+- **Middleware de autenticación automática**: Autentica usuarios automáticamente en cualquier endpoint de WordPress REST API usando el header `Authorization: Bearer <token>`
 
 ### 🤖 Cloudflare Turnstile
 - Integración opcional con Cloudflare Turnstile
@@ -163,6 +164,60 @@ Authorization: Bearer {token}
 ```
 GET /wp-json/casa-alba/v1/auth/turnstile-key
 ```
+
+## Middleware de Autenticación JWT
+
+El plugin incluye un middleware que permite autenticar usuarios automáticamente en **cualquier endpoint de WordPress REST API** usando el token JWT en el header `Authorization: Bearer <token>`.
+
+### Funcionamiento
+
+Una vez que el usuario inicia sesión y obtiene un token JWT, puede usar ese token para autenticarse en **cualquier endpoint de WordPress**, no solo los endpoints personalizados del plugin.
+
+### Ejemplo: Acceder a endpoints nativos de WordPress
+
+```javascript
+// Obtener publicaciones (endpoint nativo de WordPress)
+const { data } = await axios.get(
+  'https://tudominio.com/wp-json/wp/v2/posts',
+  {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }
+);
+
+// Obtener información del usuario actual (endpoint nativo de WordPress)
+const { data } = await axios.get(
+  'https://tudominio.com/wp-json/wp/v2/users/me',
+  {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }
+);
+
+// Crear un post (requiere autenticación)
+const { data } = await axios.post(
+  'https://tudominio.com/wp-json/wp/v2/posts',
+  {
+    title: 'Mi nuevo post',
+    content: 'Contenido del post',
+    status: 'publish'
+  },
+  {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }
+);
+```
+
+### Ventajas del Middleware
+
+- **Autenticación unificada**: Un solo token para todos los endpoints
+- **Compatibilidad total**: Funciona con cualquier plugin que use la REST API de WordPress
+- **Seguimiento de actividad**: Las peticiones autenticadas actualizan automáticamente la actividad de la sesión
+- **Sin configuración adicional**: Funciona automáticamente al activar el plugin
 
 ## Uso en el Frontend
 

@@ -146,6 +146,46 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 };
 ```
 
+### Usando el Middleware de Autenticación
+
+El plugin incluye un middleware que permite usar el token JWT para autenticarse en **cualquier endpoint de WordPress REST API**, no solo en los endpoints personalizados.
+
+#### Ejemplo: Acceder a recursos de WordPress
+
+```typescript
+// Configurar axios con el token
+const api = axios.create({
+  baseURL: 'https://tudominio.com/wp-json',
+  headers: {
+    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+  }
+});
+
+// Ahora puedes acceder a cualquier endpoint de WordPress
+// Obtener posts
+const posts = await api.get('/wp/v2/posts');
+
+// Obtener páginas
+const pages = await api.get('/wp/v2/pages');
+
+// Obtener usuario actual (endpoint nativo de WordPress)
+const currentUser = await api.get('/wp/v2/users/me');
+
+// Crear un post (requiere permisos)
+const newPost = await api.post('/wp/v2/posts', {
+  title: 'Mi nuevo post',
+  content: 'Contenido',
+  status: 'publish'
+});
+```
+
+El middleware se encarga automáticamente de:
+- Validar el token JWT
+- Autenticar al usuario en WordPress
+- Actualizar la actividad de la sesión
+- Verificar que la sesión sea válida
+
+
 ## Configuración de Seguridad
 
 ### 1. Configurar HTTPS
